@@ -1,6 +1,6 @@
 # vim-tabpopupmenu
 
-Add the popupmenu for tab.
+Add popup menu for tab.
 
 ```text
 +Tab Menu-------------+
