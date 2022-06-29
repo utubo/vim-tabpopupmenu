@@ -26,7 +26,7 @@ function! tabpopupmenu#popup(key = ' ') abort
   let l:winid = popup_menu(s:menus, #{
     \ filter: 'tabpopupmenu#filter',
     \ callback: 'tabpopupmenu#callback',
-    \ title: '*Tab Menu',
+    \ title: 'Tab Menu',
     \ })
   call win_execute(l:winid, 'call setpos(".", [0,' . stridx(s:keys, a:key). ',0,0])')
 endfunction
