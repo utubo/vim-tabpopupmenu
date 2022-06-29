@@ -1,0 +1,69 @@
+function! s:GetTabnr(tabnr)
+  return gettabinfo(a:tabnr)[0].tabnr
+endfunction
+
+function! tabpopupmenu#popup()
+  call popup_menu([
+    \ 'Close others(o)',
+    \ 'Close right tabs(<)',
+    \ 'Close left tabs(>)',
+    \ 'Move to right(L)',
+    \ 'Move to left(H)',
+    \ 'Show right(l)',
+    \ 'Show left(h)',
+    \ ], #{
+    \ filter: 'tabpopupmenu#filter',
+    \ callback: 'tabpopupmenu#callback'
+    \ })
+endfunction
+
+function! tabpopupmenu#callback(id, rt)
+  if a:rt ==# 1
+    tabonly
+  elseif a:rt ==# 2
+    if s:GetTabnr('.') !=# len(gettabinfo())
+      +,$tabc
+    endif
+  elseif a:rt ==# 3
+    if s:GetTabnr('.') !=# 1
+      0,-tabc
+    endif
+  elseif a:rt ==# 3
+    silent! exe '+tabm'
+    call tabpopupmenu#popup()
+  elseif a:rt ==# 4
+    silent! exe '-tabm'
+    call tabpopupmenu#popup()
+  elseif a:rt ==# 5
+    call tabpopupmenu#popup()
+  elseif a:rt ==# 6
+    call tabpopupmenu#popup()
+  else
+    " nop
+  endif
+endfunction
+
+function! tabpopupmenu#filter(id, key)
+  if a:key ==# 'o'
+    call popup_close(a:id, 1)
+  elseif a:key ==# '>'
+    call popup_close(a:id, 2)
+  elseif a:key ==# '<'
+    call popup_close(a:id, 3)
+  elseif a:key ==# 'L'
+    silent! exe '+tabm'
+  elseif a:key ==# 'H'
+    silent! exe '-tabm'
+  elseif a:key ==# 'l'
+    tabnext
+  elseif a:key ==# 'h'
+    tabprevious
+    call tabpopupmenu#popup()
+  elseif a:key ==# 'q'
+    call popup_close(a:id)
+  else
+    return popup_filter_menu(a:id, a:key)
+  endif
+  return 1
+endfunction
+
