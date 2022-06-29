@@ -11,7 +11,7 @@ let s:menus = [
 \]
 
 function! s:Setup()
-  let s:keys = ''
+  let s:keys = ' '
   for l:m in s:menus
     let s:keys = s:keys . matchstr(l:m, '^.')
   endfor
@@ -22,17 +22,17 @@ function! s:GetTabnr(tabnr) abort
   return gettabinfo(a:tabnr)[0].tabnr
 endfunction
 
-function! tabpopupmenu#popup(key = '') abort
-  call popup_menu(s:menus, #{
+function! tabpopupmenu#popup(key = ' ') abort
+  let l:winid = popup_menu(s:menus, #{
     \ filter: 'tabpopupmenu#filter',
     \ callback: 'tabpopupmenu#callback',
-    \ title: 'Tab Menu',
+    \ title: '*Tab Menu',
     \ })
-  call feedkeys(repeat('j', stridx(s:keys, a:key)))
+  call win_execute(l:winid, 'call setpos(".", [0,' . stridx(s:keys, a:key). ',0,0])')
 endfunction
 
 function! tabpopupmenu#callback(id, index) abort
-  let l:key = s:keys[a:index - 1]
+  let l:key = s:keys[a:index]
   if l:key ==# 'o'
     tabonly
   elseif l:key ==# '<'
@@ -65,8 +65,8 @@ function! tabpopupmenu#callback(id, index) abort
 endfunction
 
 function! tabpopupmenu#filter(id, key) abort
-  let l:index = stridx(s:keys, a:key) + 1
-  if l:index !=# 0
+  let l:index = stridx(s:keys, a:key)
+  if l:index > 0
     call popup_close(a:id, l:index)
     return 1
   else
