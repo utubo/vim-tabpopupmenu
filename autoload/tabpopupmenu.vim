@@ -1,5 +1,8 @@
 let s:menus = [
-  \ 'o: Close others',
+  \ 'n: New tab',
+  \ 'o: Open tab',
+  \ 'c: Close tab',
+  \ 'O: Close others',
   \ '<: Close left tabs',
   \ '>: Close right tabs',
   \ 'H: Move to left',
@@ -33,7 +36,13 @@ endfunction
 
 function! tabpopupmenu#callback(id, index) abort
   let l:key = s:keys[a:index]
-  if l:key ==# 'o'
+  if l:key ==# 'n'
+    tabnew
+  elseif l:key ==# 'o'
+    call feedkeys(":\<C-u>tabnew ", 'n')
+  elseif l:key ==# 'c'
+    tabclose
+  elseif l:key ==# 'O'
     tabonly
   elseif l:key ==# '<'
     if s:GetTabnr('.') !=# 1

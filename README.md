@@ -4,7 +4,10 @@ Add the popupmenu for tab.
 
 ```text
 +Tab Menu-------------+
-| o: Close others     |
+| n: New tab          |
+| o: Open tab         |
+| c: Close tab        |
+| O: Close others     |
 | <: Close left tabs  |
 | >: Close right tabs |
 | H: Move to left     |
