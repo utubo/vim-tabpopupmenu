@@ -10,6 +10,7 @@ Add popup menu for tab.
 | O: Close others     |
 | <: Close left tabs  |
 | >: Close right tabs |
+| ------------------- |
 | H: Move to left     |
 | L: Move to right    |
 | ^: Show first       |

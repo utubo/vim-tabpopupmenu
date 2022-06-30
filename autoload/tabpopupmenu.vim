@@ -5,7 +5,7 @@
 function! s:Setup()
   let s:keys = ' '
   for l:m in s:items
-    let s:keys = s:keys . matchstr(l:m, '^.')
+    let s:keys = s:keys . l:m[0]
   endfor
 endfunction
 
@@ -39,6 +39,7 @@ let s:items = [
   \ 'O: Close others',
   \ '<: Close left tabs',
   \ '>: Close right tabs',
+  \ '-------------------',
   \ 'H: Move to left',
   \ 'L: Move to right',
   \ '^: Show first',
