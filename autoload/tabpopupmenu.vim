@@ -29,14 +29,6 @@ function! tabpopupmenu#filter(id, key) abort
 endfunction
 
 " -----------------
-" utils
-" -----------------
-
-function! s:GetTabnr(tabnr) abort
-  return gettabinfo(a:tabnr)[0].tabnr
-endfunction
-
-" -----------------
 " menu items
 " -----------------
 
@@ -66,11 +58,11 @@ function! tabpopupmenu#callback(id, index) abort
   elseif l:key ==# 'O'
     tabonly
   elseif l:key ==# '<'
-    if s:GetTabnr('.') !=# 1
+    if tabpagenr() !=# 1
       0,-tabdo confirm quit
     endif
   elseif l:key ==# '>'
-    if s:GetTabnr('.') !=# len(gettabinfo())
+    if tabpagenr() !=# tabpagenr('$')
       +,$tabdo confirm quit
     endif
   elseif l:key ==# 'H'
