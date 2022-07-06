@@ -55,9 +55,13 @@ function! tabpopupmenu#callback(id, index) abort
   elseif l:key ==# 'o'
     call feedkeys(":\<C-u>tabnew ", 'n')
   elseif l:key ==# 'c'
-    tabclose
+    if tabpagenr('$') ==# 1
+      confirm quit
+    else
+      confirm tabclose
+    endif
   elseif l:key ==# 'O'
-    tabonly
+    confirm tabonly
   elseif l:key ==# '<'
     if tabpagenr() !=# 1
       0,-tabdo confirm quit
