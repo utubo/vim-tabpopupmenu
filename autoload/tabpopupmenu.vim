@@ -1,3 +1,6 @@
+let s:save_cpo = &cpo
+set cpo&vim
+
 " -----------------
 " popupmenu control
 " -----------------
@@ -93,3 +96,4 @@ endfunction
 
 call s:Setup()
 
+let &cpo = s:save_cpo
