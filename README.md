@@ -31,6 +31,6 @@ Example
 
 - Mapping
   ```vim
-  nnoremap <silent> <Leader>t :<C-u>call tabpopupmenu#popup()<CR>
+  nnoremap <silent> <Leader>t <Cmd>call tabpopupmenu#popup()<CR>
   ```
 
